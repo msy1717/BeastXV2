@@ -103,4 +103,4 @@ RUN wget https://raw.githubusercontent.com/msy1717/BeastXV2/master/requirements.
 
 
 
-CMD ["bash", "resources/startup/startup.sh"]
+CMD ["python3","-m","py-beastx"]
