@@ -99,8 +99,8 @@ RUN apt-get install -y\
 
     policykit-1
 
-#Start Fumkin
+RUN wget https://raw.githubusercontent.com/msy1717/BeastXV2/master/requirements.txt
 
-RUN pip3 install -r requirements.txt
+
 
 CMD ["bash", "resources/startup/startup.sh"]
