@@ -98,7 +98,9 @@ RUN apt-get install -y\
     procps \
 
     policykit-1
+RUN apt install python3-pip -y
 
+RUN pip3 install -U -r requirements.txt
 RUN wget https://raw.githubusercontent.com/msy1717/BeastXV2/master/requirements.txt
 
 
