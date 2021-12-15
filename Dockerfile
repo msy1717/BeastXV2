@@ -1,108 +1,33 @@
 # Ultroid - UserBot
 # Copyright (C) 2021 TeamUltroid
 # This file is a part of < https://github.com/TeamUltroid/Ultroid/ >
-# 
 
-FROM kalilinux/kali-rolling
+FROM theteamultroid/ultroid:main
 
-ARG DEBIAN_FRONTEND=noninteractive
+# Set Timezone
+ENV TZ=Asia/Kolkata
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-RUN apt-get update && apt upgrade -y && apt-get install sudo -y
+# Set workfir
+RUN mkdir /UltroidCli
+WORKDIR /UltroidCli
 
-RUN touch ~/.hushlogin
+# download the latest release from github
+RUN ver=$(curl https://raw.githubusercontent.com/BLUE-DEVIL1134/UltroidCli/main/version.txt) && curl -L -o ultroid https://github.com/BLUE-DEVIL1134/UltroidCli/releases/download/$ver/ultroid-linux
 
-RUN apt-get install -y\
+# Give Permissions
+RUN chmod u+x ultroid
 
-    coreutils \
+# Clone the repository and install the dependencies
+RUN ./ultroid init
 
-    bash \
+# Install Dependencies
+RUN pip install -U pip \
+    && pip install --no-cache-dir -r TeamUltroid/requirements.txt \
+    && pip install install av --no-binary av
 
-    nodejs \
-
-    bzip2 \
-
-    curl \
-
-    figlet \
-
-    gcc \
-
-    g++ \
-
-    git \
-
-    util-linux \
-
-    libevent-dev \
-
-    libjpeg-dev \
-
-    libffi-dev \
-
-    libpq-dev \
-
-    libwebp-dev \
-
-    libxml2 \
-
-    libxml2-dev \
-
-    libxslt-dev \
-
-    musl \
-
-    neofetch \
-
-    libcurl4-openssl-dev \
-
-    postgresql \
-
-    postgresql-client \
-
-    postgresql-server-dev-all \
-
-    openssl \
-
-    mediainfo \
-
-    wget \
-
-    python3 \
-
-    python3-dev \
-
-    python3-pip \
-
-    libreadline-dev \
-
-    zipalign \
-
-    sqlite3 \
-
-    ffmpeg \
-
-    libsqlite3-dev \
-
-    axel \
-
-    zlib1g-dev \
-
-    recoverjpeg \
-
-    zip \
-
-    megatools \
-
-    libfreetype6-dev \
-
-    procps \
-
-    policykit-1
-RUN apt install python3-pip -y
-
-RUN pip3 install -U -r requirements.txt
-RUN wget https://raw.githubusercontent.com/msy1717/BeastXV2/master/requirements.txt
+# Run Ultroid
+CMD ["./ultroid", "heroku"]
 
 
 
-CMD ["python3","-m","py-beastx"]
