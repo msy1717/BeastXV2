@@ -4,30 +4,25 @@
 
 FROM theteamultroid/ultroid:main
 
-# Set Timezone
+# set timezone
+
 ENV TZ=Asia/Kolkata
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-# Set workfir
-RUN mkdir /UltroidCli
-WORKDIR /UltroidCli
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone \
 
-# download the latest release from github
-RUN ver=$(curl https://raw.githubusercontent.com/BLUE-DEVIL1134/UltroidCli/main/version.txt) && curl -L -o ultroid https://github.com/BLUE-DEVIL1134/UltroidCli/releases/download/$ver/ultroid-linux
+    # cloning the repo and installing requirements.
 
-# Give Permissions
-RUN chmod u+x ultroid
+    && git clone https://github.com/msy1717/BeastXV2.git /root/msy1717/ \
 
-# Clone the repository and install the dependencies
-RUN ./ultroid init
+    && pip3 install --no-cache-dir -r root/msy1717/requirements.txt \
 
-# Install Dependencies
-RUN pip install -U pip \
-    && pip install --no-cache-dir -r TeamUltroid/requirements.txt \
-    && pip install install av --no-binary av
+    && pip3 uninstall av -y && pip3 install av --no-binary av
 
-# Run Ultroid
-CMD ["./ultroid", "heroku"]
+# changing workdir
 
+WORKDIR /root/msy1717/
 
+# start the bot
+
+CMD ["bash", "resources/startup/startup.sh"]
 
