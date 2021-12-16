@@ -2,11 +2,8 @@
 echo "
 
             ┏┳┓╋┏┓╋╋╋╋┏┓┏┓
-
             ┃┃┣┓┃┗┳┳┳━╋╋┛┃
-
             ┃┃┃┗┫┏┫┏┫╋┃┃╋┃
-
             ┗━┻━┻━┻┛┗━┻┻━┛
 
       Visit @TheUltroid for updates!!
@@ -15,4 +12,4 @@ echo "
 
  
 
-python3 -m py-beastx
+python3 -m py-Beastx
