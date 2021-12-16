@@ -24,5 +24,5 @@ WORKDIR /root/msy1717/
 
 # start the bot
 
-CMD ["bash", "resources/startup/startup.sh"]
+CMD ["python3", "py-Beastx"]
 
